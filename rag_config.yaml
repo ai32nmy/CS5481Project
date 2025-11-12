@@ -1,0 +1,63 @@
+# Chroma RAG Configuration File
+
+# Chroma database settings
+chroma:
+  # Persistence settings
+  persist_directory: "./chroma_db"  # Directory to store the database
+  client_type: "persistent"  # Options: "persistent" or "in_memory"
+
+  # Collection settings
+  collection_name: "rag_collection"
+
+  # Embedding settings
+  embedding_function: "default"  # Options: "default", "openai", "sentence_transformers"
+  embedding_model: "all-MiniLM-L6-v2"  # Model name for sentence_transformers
+
+  # Distance metric for similarity search
+  distance_metric: "cosine"  # Options: "cosine", "l2", "ip" (inner product)
+
+# Query settings
+query:
+  # Number of results to return
+  n_results: 5
+
+  # Include metadata, documents, and distances in results
+  include_metadata: true
+  include_documents: true
+  include_distances: true
+
+  # Filtering options
+  where_filter: null  # Example: {"category": "science"}
+  where_document_filter: null  # Example: {"$contains": "keyword"}
+
+# Indexing settings
+indexing:
+  # Batch size for adding documents
+  batch_size: 100
+
+  # Automatic ID generation
+  auto_generate_ids: true
+
+  # Metadata fields to index
+  metadata_fields: []
+
+# Performance optimization
+performance:
+  # Cache query results
+  enable_cache: true
+  cache_size: 1000
+
+  # Parallel processing
+  n_workers: 4
+
+  # HNSW index parameters (for optimization)
+  hnsw:
+    space: "cosine"
+    ef_construction: 200  # Higher = better quality, slower indexing
+    ef_search: 50  # Higher = better quality, slower search
+    M: 16  # Number of connections per layer
+
+# Logging
+logging:
+  level: "INFO"  # Options: "DEBUG", "INFO", "WARNING", "ERROR"
+  log_file: "./rag_module.log"
