@@ -14,13 +14,17 @@ This system goes beyond basic RAG by implementing an **agentic approach** where 
 
 - **Multi-format Document Support**: PDF, TXT, Markdown, DOCX
 - **Intelligent Chunking**: Configurable text splitting with overlap to preserve context
-- **Multiple LLM Providers**: Google Gemini (default, free tier available), OpenAI, or local Ollama
-- **Vector Embeddings**: Support for Gemini, OpenAI, and HuggingFace embedding models
+- **Multiple LLM Providers**:
+  - **Ollama (default)** - 100% local, private, free
+  - Google Gemini - Cloud, free tier available
+  - OpenAI - Cloud, paid
+- **Vector Embeddings**: Support for HuggingFace (local), Gemini, and OpenAI
 - **ChromaDB Integration**: Efficient local vector database with persistence
 - **Agentic Architecture**: LangChain-powered agent with custom tools
 - **Conversation Memory**: Context-aware multi-turn conversations
 - **Interactive CLI**: User-friendly command-line interface
 - **Configurable Pipeline**: YAML-based configuration for easy customization
+- **Privacy-First**: Default configuration runs 100% locally with no external API calls
 
 ## Architecture
 
@@ -61,10 +65,14 @@ This system goes beyond basic RAG by implementing an **agentic approach** where 
 ## Requirements
 
 - Python 3.9+
-- **Google Gemini API key** (free tier available - recommended!) **OR** OpenAI API key
+- **Ollama with gemma3:1b** (100% free, local, private - **NOW DEFAULT!**)
+  - **OR** Google Gemini API key (free tier available)
+  - **OR** OpenAI API key (paid)
 - See `requirements.txt` for full dependencies
 
-> **New!** This system now uses Google Gemini by default, which offers a generous free tier. See [GEMINI_SETUP.md](GEMINI_SETUP.md) for setup instructions.
+> **Updated!** This system now uses **Ollama** by default for completely local, private, and free AI. No API keys needed! See [OLLAMA_SETUP.md](OLLAMA_SETUP.md) for setup instructions.
+>
+> For cloud options, see [GEMINI_SETUP.md](GEMINI_SETUP.md) (free) or configure OpenAI (paid).
 
 ## Installation
 
@@ -85,11 +93,23 @@ This system goes beyond basic RAG by implementing an **agentic approach** where 
    pip install -r requirements.txt
    ```
 
-4. **Set up environment variables**:
+4. **Set up Ollama** (Default - Recommended):
+   ```bash
+   # Install Ollama (see OLLAMA_SETUP.md for details)
+   # macOS: brew install ollama
+   # Linux: curl -fsSL https://ollama.ai/install.sh | sh
+
+   # Pull the gemma3:1b model
+   ollama pull gemma3:1b
+
+   # No API keys needed! Everything runs locally.
+   ```
+
+   **Alternative**: Use cloud providers (requires API keys):
    ```bash
    cp .env.example .env
-   # Edit .env and add your GOOGLE_API_KEY (get one at https://makersuite.google.com/app/apikey)
-   # Alternatively, use OPENAI_API_KEY if you prefer OpenAI
+   # Edit .env and add your GOOGLE_API_KEY or OPENAI_API_KEY
+   # Then update config.yaml to change provider
    ```
 
 5. **Add your documents**:

@@ -59,7 +59,7 @@ def main():
     with open(args.config, 'r') as f:
         config = yaml.safe_load(f)
 
-    # Check for API key based on LLM provider
+    # Check for API key based on LLM provider (skip for local models)
     llm_provider = config['llm']['provider']
     if llm_provider == 'gemini' and not os.getenv("GOOGLE_API_KEY"):
         print("Error: GOOGLE_API_KEY not found in environment variables.")
@@ -71,6 +71,9 @@ def main():
         print("Please create a .env file with your OpenAI API key.")
         print("See .env.example for reference.")
         return 1
+    elif llm_provider == 'ollama':
+        print(f"Using Ollama with model: {config['llm']['ollama_model']}")
+        print(f"Make sure Ollama is running at: {config['llm'].get('ollama_base_url', 'http://localhost:11434')}")
 
     # Check if vector database exists
     persist_dir = config['vector_db']['persist_directory']

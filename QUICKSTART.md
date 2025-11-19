@@ -5,8 +5,9 @@ Get up and running with the Agentic RAG system in 5 minutes!
 ## Prerequisites
 
 - Python 3.9 or higher
-- **Google Gemini API key** (get one at https://makersuite.google.com/app/apikey - **FREE tier available!**)
-  - OR OpenAI API key (https://platform.openai.com/api-keys - paid only)
+- **Ollama installed** (100% free, local, private - **RECOMMENDED!**)
+  - OR Google Gemini API key (cloud, free tier)
+  - OR OpenAI API key (cloud, paid)
 
 ## Setup Steps
 
@@ -23,26 +24,49 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### 2. Configure API Key
+### 2. Set Up Your LLM
 
-**Option A: Using Google Gemini (Recommended - FREE!)**
+**Option A: Using Ollama (Recommended - 100% Free & Private!)**
+
+The system is already configured for Ollama! Just install and pull the model:
 
 ```bash
-# Copy the example environment file
-cp .env.example .env
+# macOS
+brew install ollama
 
-# Edit .env and add your Google Gemini API key
-# GOOGLE_API_KEY=AIza...your-key-here
+# Linux
+curl -fsSL https://ollama.ai/install.sh | sh
+
+# Pull the gemma3:1b model
+ollama pull gemma3:1b
+
+# No API keys needed! See OLLAMA_SETUP.md for more details.
 ```
 
-On macOS/Linux:
+**Option B: Using Google Gemini (Cloud, Free Tier)**
+
+Update `config.yaml`:
+```yaml
+embeddings:
+  provider: "gemini"
+  model: "models/embedding-001"
+
+llm:
+  provider: "gemini"
+  model: "gemini-2.0-flash"
+
+agent:
+  agent_type: "react"
+```
+
+Then create `.env` with your API key:
 ```bash
 echo "GOOGLE_API_KEY=AIza...your-key-here" > .env
 ```
 
-**Option B: Using OpenAI**
+**Option C: Using OpenAI (Cloud, Paid)**
 
-If you prefer OpenAI, update `config.yaml`:
+Update `config.yaml`:
 ```yaml
 embeddings:
   provider: "openai"
@@ -56,7 +80,7 @@ agent:
   agent_type: "openai-tools"
 ```
 
-Then add your OpenAI key:
+Then create `.env` with your API key:
 ```bash
 echo "OPENAI_API_KEY=sk-...your-key-here" > .env
 ```
@@ -151,8 +175,24 @@ Edit `config.yaml` to customize:
 
 ## Troubleshooting
 
+### "Connection refused" when using Ollama
+Make sure Ollama is running:
+```bash
+# Check if Ollama is running
+curl http://localhost:11434
+
+# Start Ollama if needed
+ollama serve
+```
+
+### "Model not found" with Ollama
+Pull the gemma3:1b model:
+```bash
+ollama pull gemma3:1b
+```
+
 ### "GOOGLE_API_KEY not found" or "OPENAI_API_KEY not found"
-Make sure you created the `.env` file with the appropriate API key:
+Only needed if you switched to cloud providers. Make sure you created the `.env` file:
 ```bash
 cat .env
 # Should show: GOOGLE_API_KEY=AIza... (for Gemini)

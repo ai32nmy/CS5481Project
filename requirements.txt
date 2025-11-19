@@ -11,6 +11,7 @@ chromadb==0.4.22
 # LLM Providers
 openai==1.10.0
 google-generativeai==0.4.1
+ollama>=0.1.0
 
 # HuggingFace (optional, for local embeddings)
 sentence-transformers==2.3.1

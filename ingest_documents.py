@@ -51,6 +51,9 @@ def main():
     elif provider == 'openai' and not os.getenv("OPENAI_API_KEY"):
         print("Warning: OPENAI_API_KEY not found in environment variables.")
         print("Please set this in a .env file to use OpenAI embeddings.")
+    elif provider == 'huggingface':
+        print(f"Using local HuggingFace embeddings: {config['embeddings']['huggingface_model']}")
+        print("No API key required - models will be downloaded locally on first use.")
 
     print("="*60)
     print("Document Ingestion Pipeline")
