@@ -3,6 +3,10 @@ Main Application
 Interactive CLI for the Agentic RAG system.
 """
 
+import sys
+# Suppress broken tensorflow installation
+sys.modules['tensorflow'] = None
+
 import argparse
 import os
 import sys

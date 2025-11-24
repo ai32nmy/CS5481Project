@@ -3,6 +3,10 @@ Document Ingestion Script
 Processes documents and creates/updates the vector database.
 """
 
+import sys
+# Suppress broken tensorflow installation
+sys.modules['tensorflow'] = None
+
 import argparse
 import os
 from dotenv import load_dotenv
