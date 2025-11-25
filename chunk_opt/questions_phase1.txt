@@ -1,0 +1,10 @@
+What are the main research trends in large language models since 2021?
+Summarize the key idea of a recent paper on retrieval-augmented generation.
+What are typical architectures for RAG according to recent arXiv papers?
+How do recent papers define and use AI agents or agentic workflows?
+Give an overview of diffusion models for image generation.
+What challenges are discussed regarding LLM alignment and safety?
+How do multimodal LLMs differ from text-only LLMs in recent work?
+What evaluation methods for LLMs are discussed in the corpus?
+Compare two different approaches to RAG proposed in the literature.
+What do recent papers say about tool-augmented LLMs or tool-using agents?
